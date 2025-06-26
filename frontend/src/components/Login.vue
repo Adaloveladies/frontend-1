@@ -1,11 +1,12 @@
 <template>
   <div class="login-page">
+    <button class="signup-btn" @click="goToSignUp">Sign Up</button>
     <div class="login-form-container">
       <form @submit.prevent="handleLogin">
         <h2>Login</h2>
         <div class="input-group">
-          <label for="email">Email</label>
-          <input type="email" id="email" v-model="email" required>
+          <label for="email">Kullanıcı Adı</label>
+          <input type="text" id="email" v-model="email" required placeholder="Kullanıcı adınızı girin">
         </div>
         <div class="input-group">
           <label for="password">Password</label>
@@ -26,11 +27,15 @@ const password = ref('');
 const router = useRouter();
 
 const handleLogin = () => {
-  // Bu kısımda normalde sunucuya giriş isteği gönderilir.
-  // Şimdilik sadece bilgileri konsola yazdırıp ana sayfaya yönlendirelim.
-  console.log('Giriş yapılıyor:', email.value, password.value);
-  router.push('/');
+  // API isteği simülasyonu: her zaman başarılı
+  setTimeout(() => {
+    router.push('/profile');
+  }, 500);
 };
+
+function goToSignUp() {
+  router.push('/signup');
+}
 </script>
 
 <style scoped>
@@ -90,5 +95,26 @@ h2 {
 
 .btn-success:hover {
   background-color: #218838;
+}
+
+.signup-btn {
+  position: absolute;
+  top: 32px;
+  right: 32px;
+  background: #43a047;
+  color: #fff;
+  border: none;
+  border-radius: 18px;
+  padding: 14px 32px;
+  font-size: 1.1em;
+  font-weight: bold;
+  box-shadow: 0 2px 8px #0002;
+  cursor: pointer;
+  z-index: 1000;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.signup-btn:hover {
+  background: #388e3c;
+  box-shadow: 0 4px 16px #43a04744;
 }
 </style> 
