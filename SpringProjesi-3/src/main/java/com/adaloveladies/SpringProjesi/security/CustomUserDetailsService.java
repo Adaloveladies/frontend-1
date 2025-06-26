@@ -23,8 +23,10 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Kullanici kullanici = kullaniciRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("Kullanıcı bulunamadı: " + username));
+        String normalized = username.trim().toLowerCase();
+        Kullanici kullanici = kullaniciRepository.findByUsername(normalized)
+                .orElseGet(() -> kullaniciRepository.findByEmail(normalized)
+                        .orElseThrow(() -> new UsernameNotFoundException("Kullanıcı bulunamadı: " + username)));
 
         List<SimpleGrantedAuthority> authorities = kullanici.getRoller().stream()
                 .map(rol -> new SimpleGrantedAuthority(rol.getAd()))

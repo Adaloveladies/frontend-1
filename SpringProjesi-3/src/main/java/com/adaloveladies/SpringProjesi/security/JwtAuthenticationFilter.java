@@ -22,6 +22,9 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
+import com.adaloveladies.SpringProjesi.security.JwtTokenProvider;
+
+@SuppressWarnings("unused")
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
@@ -39,9 +42,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         "/actuator"
     );
 
-    private final JwtService jwtService;
+    private final JwtTokenProvider jwtTokenProvider;
     private final UserDetailsService userDetailsService;
 
+    @SuppressWarnings("null")
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                   HttpServletResponse response,
@@ -64,12 +68,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             }
 
             final String jwt = authHeader.substring(BEARER_PREFIX.length());
-            final String username = jwtService.extractUsername(jwt);
+            final String username = jwtTokenProvider.getUsernameFromJWT(jwt);
+            logger.info("[DEBUG] Token'dan çıkarılan username/email: {}", username);
 
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
-                
-                if (jwtService.isTokenValid(jwt, userDetails)) {
+                logger.info("[DEBUG] UserDetailsService'den dönen kullanıcı: {}", userDetails.getUsername());
+                boolean valid = jwtTokenProvider.validateToken(jwt);
+                logger.info("[DEBUG] Token doğrulama sonucu: {}", valid);
+                if (valid) {
                     logger.debug("Token geçerli. Kullanıcı doğrulanıyor: {}", username);
                     UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                             userDetails,
