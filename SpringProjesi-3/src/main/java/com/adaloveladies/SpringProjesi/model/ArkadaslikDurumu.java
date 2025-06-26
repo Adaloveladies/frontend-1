@@ -6,3 +6,4 @@ public enum ArkadaslikDurumu {
     REDDEDILDI,
     IPTAL_EDILDI
 } 
+

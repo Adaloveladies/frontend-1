@@ -10,6 +10,7 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+@SuppressWarnings("unused")
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor

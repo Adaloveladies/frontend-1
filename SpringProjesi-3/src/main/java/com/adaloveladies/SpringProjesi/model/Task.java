@@ -14,6 +14,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * Görev modeli
  * Kullanıcıların oluşturduğu görevleri temsil eder
  */
+@SuppressWarnings("unused")
 @Entity
 @Builder
 @NoArgsConstructor

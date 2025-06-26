@@ -11,6 +11,7 @@ import lombok.ToString;
 import java.time.LocalDateTime;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+@SuppressWarnings("unused")
 @Entity
 @Table(name = "buildings")
 @Getter
