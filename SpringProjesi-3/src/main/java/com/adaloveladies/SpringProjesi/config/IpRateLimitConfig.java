@@ -42,6 +42,7 @@ public class IpRateLimitConfig {
         return ipBuckets.computeIfAbsent(ip, this::newIpBucket);
     }
     
+    @SuppressWarnings("deprecation")
     private Bucket newIpBucket(String ip) {
         Refill refill = Refill.intervally(maxRequests, Duration.ofSeconds(durationInSeconds));
         Bandwidth limit = Bandwidth.classic(maxRequests, refill);

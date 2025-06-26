@@ -37,8 +37,9 @@ public class RateLimitInterceptor implements HandlerInterceptor {
 
     private final IpRateLimitConfig ipRateLimitConfig;
 
+    @SuppressWarnings("null")
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
+    public boolean preHandle(@SuppressWarnings("null") HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
         String requestPath = request.getServletPath();
         String requestMethod = request.getMethod();
         

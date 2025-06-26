@@ -18,6 +18,7 @@ public class PageableConfig implements WebMvcConfigurer {
     private static final String DEFAULT_SORT_FIELD = "olusturmaTarihi";
     private static final Sort.Direction DEFAULT_SORT_DIRECTION = Sort.Direction.DESC;
 
+    @SuppressWarnings("null")
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
         // Sayfalama için resolver
