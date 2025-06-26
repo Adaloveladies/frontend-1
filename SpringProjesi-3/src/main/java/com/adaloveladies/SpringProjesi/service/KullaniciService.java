@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.HashSet;
 
 @Service
 @RequiredArgsConstructor
@@ -50,14 +51,17 @@ public class KullaniciService {
                 .active(true)
                 .build();
 
+        // Roller setini garanti altına al
+        Set<Rol> roller = new HashSet<>();
         Rol userRole = rolRepository.findByAd("ROLE_USER")
                 .orElseThrow(() -> new RuntimeException("Varsayılan rol bulunamadı"));
-        kullanici.getRoller().add(userRole);
+        roller.add(userRole);
+        kullanici.setRoller(roller);
 
         kullanici = kullaniciRepository.save(kullanici);
-        
-        // Kullanıcı için şehir oluştur
-        sehirService.sehirOlustur(kullanici);
+
+        // Hata ayıklama için geçici olarak devre dışı bırakıldı
+        // sehirService.sehirOlustur(kullanici);
 
         return mapToResponseDTO(kullanici);
     }
@@ -164,9 +168,12 @@ public class KullaniciService {
                 .active(true)
                 .build();
 
+        // Roller setini garanti altına al
+        Set<Rol> roller = new HashSet<>();
         Rol userRole = rolRepository.findByAd("ROLE_USER")
                 .orElseThrow(() -> new RuntimeException("Varsayılan rol bulunamadı"));
-        kullanici.getRoller().add(userRole);
+        roller.add(userRole);
+        kullanici.setRoller(roller);
 
         return kullaniciRepository.save(kullanici);
     }

@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 /**
  * Kullanıcı işlemlerini yöneten servis
  */
+@SuppressWarnings("unused")
 @Service
 @RequiredArgsConstructor
 public class UserService {

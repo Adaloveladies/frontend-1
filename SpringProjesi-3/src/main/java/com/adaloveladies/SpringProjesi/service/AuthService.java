@@ -78,8 +78,11 @@ public class AuthService {
                 .active(true)
                 .build();
 
+        // Roller setini garanti altına al
         Set<Rol> roller = new HashSet<>();
-        rolRepository.findByAd("ROLE_USER").ifPresent(roller::add);
+        Rol userRole = rolRepository.findByAd("ROLE_USER")
+                .orElseThrow(() -> new RuntimeException("Varsayılan rol bulunamadı"));
+        roller.add(userRole);
         kullanici.setRoller(roller);
 
         kullaniciRepository.save(kullanici);

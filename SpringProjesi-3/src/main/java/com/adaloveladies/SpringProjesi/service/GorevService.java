@@ -36,6 +36,7 @@ public class GorevService {
     
     private static final int GUNLUK_GOREV_LIMITI = 20;
     private static final int GOREV_PUAN_DEGERI = 10;
+    @SuppressWarnings("unused")
     private static final int BINA_TAMAMLAMA_PUANI = 100;
     private static final int MAKSIMUM_KAT_SAYISI = 10;
 
